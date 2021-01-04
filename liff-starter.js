@@ -72,9 +72,11 @@ function initializeApp() {
     }
 
     if (!liff.isInClient()) {
-        sendAlertIfNotInClient();
+        document.getElementById('liffLoginButton').classList.remove('hidden') = true;
+        document.getElementById('liffLogoutButton').classList.remove('hidden') = true;
     } else {
-        liff.closeWindow();
+        document.getElementById('liffLoginButton').classList.add('hidden') = true;
+        document.getElementById('liffLogoutButton').classList.add('hidden') = true;
     }
 }
 
@@ -120,7 +122,6 @@ function registerButtonHandlers() {
         if (!liff.isLoggedIn()) {
             // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
             liff.login();
-            toggleone();
         }
     });
 }
