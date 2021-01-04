@@ -105,6 +105,8 @@ function registerButtonHandlers() {
         if (!liff.isLoggedIn()) {
             // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
             liff.login();
+            document.getElementById("halamanLogin").classList.add('hidden');
+            document.getElementById("isiAplikasi").classList.remove('hidden');
         }
     });
 }
