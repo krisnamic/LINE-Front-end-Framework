@@ -61,13 +61,29 @@ $(document).ready(function(){
      * Initialize the app by calling functions handling individual app components
      */
     function initializeApp() {
+        displayIsInClientInfo();
         registerButtonHandlers();
 
         // check if the user is logged in/out, and disable inappropriate button
         if (liff.isLoggedIn()) {
             document.getElementById('liffLoginButton').disabled = true;
+            document.getElementById('halamanLogin').classList.add('hidden');
+            document.getElementById('isiAplikasi').classList.remove('hidden');
         } else {
             document.getElementById('liffLogoutButton').disabled = true;
+        }
+    }
+
+    /**
+    * Toggle the login/logout buttons based on the isInClient status, and display a message accordingly
+    */
+    function displayIsInClientInfo() {
+
+        if (liff.isInClient()) {
+            document.getElementById('liffLoginButton').classList.toggle('hidden');
+            document.getElementById('liffLogoutButton').classList.toggle('hidden');
+        } else {
+            
         }
     }
 
@@ -113,8 +129,6 @@ $(document).ready(function(){
             if (!liff.isLoggedIn()) {
                 // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
                 liff.login();
-                toggleElement('halamanLogin');
-                toggleElement('isiAplikasi');
             }
         });
     }
