@@ -66,7 +66,7 @@ $(document).ready(function(){
 
         // check if the user is logged in/out, and disable inappropriate button
         if (liff.isLoggedIn()) {
-            document.getElementById('liffLoginButton').disabled = false;
+            document.getElementById('liffLogoutButton').disabled = false;
         } else {
             document.getElementById('liffLogoutButton').disabled = true;
         }
