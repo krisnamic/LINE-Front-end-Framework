@@ -118,10 +118,11 @@ $(document).ready(function(){
 
         // sendMessages call
         document.getElementById('sendMessageButton').addEventListener('click', function() {
+            var name = $('#displayNameField').text();
+            
             if (!liff.isInClient()) {
                 sendAlertIfNotInClient();
             } else {
-                var name = $('.displayNameField').text();
                 liff.sendMessages([{
                     'type': 'text',
                     'text': `Hi ${name},\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* ${totalMakanan} Makanan\n* ${totalMinuman} Minuman\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!`
