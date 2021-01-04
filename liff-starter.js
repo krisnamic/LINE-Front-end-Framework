@@ -85,7 +85,7 @@ function registerButtonHandlers() {
     // openWindow call
     document.getElementById('openWindowButton').addEventListener('click', function() {
         liff.openWindow({
-            url: 'https://cobapemesananmakanan.herokuapp.com/',
+            url: 'https://submissionpemesananmakanan.herokuapp.com/',
             external: true
         });
     });
