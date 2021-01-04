@@ -67,16 +67,18 @@ function initializeApp() {
     // check if the user is logged in/out, and disable inappropriate button
     if (liff.isLoggedIn()) {
         document.getElementById('liffLoginButton').disabled = true;
+        document.getElementByClass('halamanLogin').classList.add('hidden') = true;
+        document.getElementByClass('isiAplikasi').classList.remove('hidden') = true;
     } else {
         document.getElementById('liffLogoutButton').disabled = true;
     }
 
     if (!liff.isInClient()) {
-        document.getElementById('liffLoginButton').classList.remove('hidden') = true;
-        document.getElementById('liffLogoutButton').classList.remove('hidden') = true;
+
     } else {
         document.getElementById('liffLoginButton').classList.add('hidden') = true;
         document.getElementById('liffLogoutButton').classList.add('hidden') = true;
+        document.getElementByClass('halamanLogin').classList.add('hidden') = true;
     }
 }
 
