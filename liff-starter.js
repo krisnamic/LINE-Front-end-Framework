@@ -26,7 +26,7 @@ $(document).ready(function(){
         totalHarga = parseInt($('.jumlahMakanan1').text())*parseInt($('.harga1').text()) + parseInt($('.jumlahMakanan2').text())*parseInt($('.harga2').text()) + parseInt($('.jumlahMinuman1').text())*parseInt($('.harga3').text()) + parseInt($('.jumlahMinuman2').text())*parseInt($('.harga4').text());
         $('.totalHarga').text('Harga: '+totalHarga);
     });
-
+});
     window.onload = function() {
         const useNodeJS = false;   // if you are not using a node server, set this value to false
         const defaultLiffId = "1655338109-RpZmDMGN";   // change the default LIFF value if you are not using a node server
@@ -178,4 +178,4 @@ $(document).ready(function(){
         }
     }
 
-});
+
