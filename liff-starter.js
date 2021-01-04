@@ -76,9 +76,11 @@ function initializeApp() {
     if (!liff.isInClient()) {
         document.getElementByClass('liffLoginButton').classList.remove('hidden') = true;
         document.getElementByClass('liffLogoutButton').classList.remove('hidden') = true;
+        alert('make browser ye');
     } else {
         document.getElementById('liffLoginButton').classList.add('hidden') = true;
         document.getElementById('liffLogoutButton').classList.add('hidden') = true;
+        alert('make hp ye');
     }
 }
 
