@@ -26,124 +26,110 @@ $(document).ready(function(){
         totalHarga = parseInt($('.jumlahMakanan1').text())*parseInt($('.harga1').text()) + parseInt($('.jumlahMakanan2').text())*parseInt($('.harga2').text()) + parseInt($('.jumlahMinuman1').text())*parseInt($('.harga3').text()) + parseInt($('.jumlahMinuman2').text())*parseInt($('.harga4').text());
         $('.totalHarga').text('Harga: '+totalHarga);
     });
+
+    window.onload = function() {
+        const useNodeJS = false;   // if you are not using a node server, set this value to false
+        const defaultLiffId = "1655338109-RpZmDMGN";   // change the default LIFF value if you are not using a node server
+
+        // DO NOT CHANGE THIS
+        let myLiffId = "";
+
+        // if node is used, fetch the environment variable and pass it to the LIFF method
+        // otherwise, pass defaultLiffId
+        myLiffId = defaultLiffId;
+        initializeLiff(myLiffId);
+    };
+
+
+
+    /**
+    * Initialize LIFF
+    * @param {string} myLiffId The LIFF ID of the selected element
+    */
+    function initializeLiff(myLiffId) {
+        liff
+            .init({
+                liffId: myLiffId
+            })
+            .then(() => {
+                // start to use LIFF's api
+                initializeApp();
+            });
+    }
+
+    /**
+     * Initialize the app by calling functions handling individual app components
+     */
+    function initializeApp() {
+        registerButtonHandlers();
+
+        // check if the user is logged in/out, and disable inappropriate button
+        if (liff.isLoggedIn()) {
+            document.getElementById('liffLoginButton').disabled = true;
+        } else {
+            document.getElementById('liffLogoutButton').disabled = true;
+        }
+    }
+
+    /**
+    * Register event handlers for the buttons displayed in the app
+    */
+    function registerButtonHandlers() {
+
+        // get profile call
+        liff.getProfile().then(function(profile) {
+            document.getElementById('displayNameField').textContent = profile.displayName;
+
+            const profilePictureDiv = document.getElementById('profilePictureDiv');
+            if (profilePictureDiv.firstElementChild) {
+                profilePictureDiv.removeChild(profilePictureDiv.firstElementChild);
+            }
+            const img = document.createElement('img');
+            img.src = profile.pictureUrl;
+            img.alt = 'Profile Picture';
+            profilePictureDiv.appendChild(img);
+        });
+
+        // openWindow call
+        document.getElementById('openWindowButton').addEventListener('click', function() {
+            liff.openWindow({
+                url: 'https://submissionpemesananmakanan.herokuapp.com/',
+                external: true
+            });
+        });
+
+        // sendMessages call
+        document.getElementById('sendMessageButton').addEventListener('click', function() {
+            liff.sendMessages([{
+                'type': 'text',
+                'text': "Hi"+profile.displayName+",\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* "+totalMakanan+" Makanan\n* "+totalMinuman+" Minuman\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!"
+            }]).then(function() {
+                window.alert('Message sent');
+            });
+        });
+
+        // login call, only when external browser is used
+        document.getElementById('liffLoginButton').addEventListener('click', function() {
+            if (!liff.isLoggedIn()) {
+                // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
+                liff.login();
+                toggleElement('halamanLogin');
+                toggleElement('isiAplikasi');
+            }
+        });
+    }
+
+    /**
+    * Toggle specified element
+    * @param {string} elementId The ID of the selected element
+    */
+    function toggleElement(elementId) {
+        const elem = document.getElementById(elementId);
+        if (elem.offsetWidth > 0 && elem.offsetHeight > 0) {
+            elem.style.display = 'none';
+        } else {
+            elem.style.display = 'block';
+        }
+    }
+
 });
-
-window.onload = function() {
-    const useNodeJS = false;   // if you are not using a node server, set this value to false
-    const defaultLiffId = "1655338109-RpZmDMGN";   // change the default LIFF value if you are not using a node server
-
-    // DO NOT CHANGE THIS
-    let myLiffId = "";
-
-    // if node is used, fetch the environment variable and pass it to the LIFF method
-    // otherwise, pass defaultLiffId
-    myLiffId = defaultLiffId;
-    initializeLiff(myLiffId);
-};
-
-
-
-/**
-* Initialize LIFF
-* @param {string} myLiffId The LIFF ID of the selected element
-*/
-function initializeLiff(myLiffId) {
-    liff
-        .init({
-            liffId: myLiffId
-        })
-        .then(() => {
-            // start to use LIFF's api
-            initializeApp();
-        });
-}
-
-/**
- * Initialize the app by calling functions handling individual app components
- */
-function initializeApp() {
-    registerButtonHandlers();
-
-    // check if the user is logged in/out, and disable inappropriate button
-    if (liff.isLoggedIn()) {
-        document.getElementById('liffLoginButton').disabled = true;
-        document.getElementByClass('halamanLogin').classList.add('hidden') = true;
-        document.getElementByClass('isiAplikasi').classList.remove('hidden') = true;
-    } else {
-        document.getElementById('liffLogoutButton').disabled = true;
-    }
-
-    if (!liff.isInClient()) {
-        document.getElementByClass('liffLoginButton').classList.remove('hidden') = true;
-        document.getElementByClass('liffLogoutButton').classList.remove('hidden') = true;
-        alert('make browser ye');
-    } else {
-        document.getElementById('liffLoginButton').classList.add('hidden') = true;
-        document.getElementById('liffLogoutButton').classList.add('hidden') = true;
-        alert('make hp ye');
-    }
-}
-
-/**
-* Register event handlers for the buttons displayed in the app
-*/
-function registerButtonHandlers() {
-
-    // get profile call
-    liff.getProfile().then(function(profile) {
-        document.getElementById('displayNameField').textContent = profile.displayName;
-
-        const profilePictureDiv = document.getElementById('profilePictureDiv');
-        if (profilePictureDiv.firstElementChild) {
-            profilePictureDiv.removeChild(profilePictureDiv.firstElementChild);
-        }
-        const img = document.createElement('img');
-        img.src = profile.pictureUrl;
-        img.alt = 'Profile Picture';
-        profilePictureDiv.appendChild(img);
-    });
-
-    // openWindow call
-    document.getElementById('openWindowButton').addEventListener('click', function() {
-        liff.openWindow({
-            url: 'https://submissionpemesananmakanan.herokuapp.com/',
-            external: true
-        });
-    });
-
-    // sendMessages call
-    document.getElementById('sendMessageButton').addEventListener('click', function() {
-        liff.sendMessages([{
-            'type': 'text',
-            'text': "Hi"+profile.displayName+",\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* "+totalMakanan+" Makanan\n* "+totalMinuman+" Minuman\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!"
-        }]).then(function() {
-            window.alert('Message sent');
-        });
-    });
-
-    // login call, only when external browser is used
-    document.getElementById('liffLoginButton').addEventListener('click', function() {
-        if (!liff.isLoggedIn()) {
-            // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
-            liff.login();
-        }
-    });
-}
-
-function sendAlertIfNotInClient() {
-    alert('This button is unavailable as LIFF is currently being opened in an external browser.');
-}
-
-/**
-* Toggle specified element
-* @param {string} elementId The ID of the selected element
-*/
-function toggleElement(elementId) {
-    const elem = document.getElementById(elementId);
-    if (elem.offsetWidth > 0 && elem.offsetHeight > 0) {
-        elem.style.display = 'none';
-    } else {
-        elem.style.display = 'block';
-    }
-}
-
