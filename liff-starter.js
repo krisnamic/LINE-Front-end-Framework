@@ -163,7 +163,7 @@ $(document).ready(function(){
     * Alert the user if LIFF is opened in an external browser and unavailable buttons are tapped
     */
     function sendAlertIfNotInClient() {
-        alert('This button is unavailable as LIFF is currently being opened in an external browser.');
+        alert('Gunakan web app dalam line untuk melihat riwayat pesanan.');
     }
 
     /**
