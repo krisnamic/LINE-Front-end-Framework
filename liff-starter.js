@@ -1,7 +1,6 @@
 var totalMakanan = 0;
 var totalMinuman = 0;
 var totalHarga = 0;
-var name;
 
 $(document).ready(function(){
     $(".jumlah").html("0");
@@ -98,7 +97,6 @@ $(document).ready(function(){
         // get profile call
         liff.getProfile().then(function(profile) {
             document.getElementById('displayNameField').textContent = profile.displayName;
-            name = $('.displayNameField').text();
 
             const profilePictureDiv = document.getElementById('profilePictureDiv');
             if (profilePictureDiv.firstElementChild) {
@@ -123,6 +121,7 @@ $(document).ready(function(){
             if (!liff.isInClient()) {
                 sendAlertIfNotInClient();
             } else {
+                var name = $('.displayNameField').text();
                 liff.sendMessages([{
                     'type': 'text',
                     'text': `Hi ${name},\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* ${totalMakanan} Makanan\n* ${totalMinuman} Minuman\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!`
