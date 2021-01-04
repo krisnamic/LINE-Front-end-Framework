@@ -79,7 +79,7 @@ $(document).ready(function(){
     function displayIsInClientInfo() {
 
         if (liff.isInClient()) {
-            document.getElementById('liffLoginButton0').classList.add('hidden');
+            document.getElementById('liffLoginButton').classList.add('hidden');
             document.getElementById('liffLogoutButton').classList.add('hidden');
         } else {
             document.getElementById('openWindowButton').classList.add('hidden');
@@ -131,6 +131,10 @@ $(document).ready(function(){
                 document.getElementById('halamanLogin').classList.add('hidden');
                 document.getElementById('isiAplikasi').classList.remove('hidden');
             }
+            else{
+                document.getElementById('halamanLogin').classList.remove('hidden');
+                document.getElementById('isiAplikasi').classList.add('hidden');
+            }
         });
 
         // login call, only when external browser is used
@@ -140,6 +144,10 @@ $(document).ready(function(){
                 liff.login();
                 document.getElementById('halamanLogin').classList.add('hidden');
                 document.getElementById('isiAplikasi').classList.remove('hidden');
+            }
+            else{
+                document.getElementById('halamanLogin').classList.remove('hidden');
+                document.getElementById('isiAplikasi').classList.add('hidden');
             }
         });
 
