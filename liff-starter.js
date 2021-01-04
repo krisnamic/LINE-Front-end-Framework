@@ -77,6 +77,8 @@ $(document).ready(function(){
     */
     function displayIsInClientInfo() {
         if (liff.isInClient()) {
+            document.getElementById('halamanLogin').classList.add('hidden');
+            document.getElementById('isiAplikasi').classList.remove('hidden');
             toggleElement('halamanLogin');
             toggleElement('isiAplikasi');
             document.getElementById('liffLogoutButton').classList.add('hidden');
