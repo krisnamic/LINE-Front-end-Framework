@@ -125,7 +125,7 @@ $(document).ready(function(){
             } else {
                 liff.sendMessages([{
                     'type': 'text',
-                    'text': `Hi ${name},\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* ${totalMakanan} Makanan\n* ${totalMinuman} Minuman\nTotal harga: ${totalHarga}\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!`
+                    'text': `Hi ${name},\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* ${totalMakanan} Makanan\n* ${totalMinuman} Minuman\nTotal harga: Rp. ${totalHarga}\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!`
                 }]).then(function() {
                     window.alert('Message sent');
                 }).catch(function(error) {
