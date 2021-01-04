@@ -81,6 +81,10 @@ $(document).ready(function(){
             document.getElementById('liffLogoutButton').classList.add('hidden');
             toggleElement('liffLogoutButton');
         } else {
+            document.getElementById('halamanLogin').classList.add('hidden');
+            document.getElementById('isiAplikasi').classList.remove('hidden');
+            toggleElement('halamanLogin');
+            toggleElement('isiAplikasi');
             document.getElementById('liffLogoutButton').classList.remove('hidden');
             toggleElement('liffLogoutButton');
             document.getElementById('openWindowButton').classList.add('hidden');
@@ -126,9 +130,6 @@ $(document).ready(function(){
 
         // login call, only when external browser is used
         document.getElementById('liffLoginButton').addEventListener('click', function() {
-            document.getElementById('halamanLogin').classList.add('hidden');
-            document.getElementById('isiAplikasi').classList.remove('hidden');
-            
             if (!liff.isLoggedIn()) {
                 // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
                 liff.login(); 
