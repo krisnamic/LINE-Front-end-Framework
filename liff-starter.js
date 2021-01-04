@@ -82,7 +82,6 @@ $(document).ready(function(){
             toggleElement('halamanLogin');
             toggleElement('isiAplikasi');
             document.getElementById('liffLogoutButton').classList.add('hidden');
-            toggleElement('liffLogoutButton');
         } else {
             document.getElementById('liffLogoutButton').classList.remove('hidden');
             toggleElement('liffLogoutButton');
