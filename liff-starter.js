@@ -150,8 +150,6 @@ $(document).ready(function(){
             if (liff.isLoggedIn()) {
                 liff.logout();
                 window.location.reload();
-                document.getElementById('halamanLogin').classList.remove('hidden');
-                document.getElementById('isiAplikasi').classList.add('hidden');
                 toggleElement('halamanLogin');
                 toggleElement('isiAplikasi');
             }
