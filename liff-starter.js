@@ -76,15 +76,14 @@ $(document).ready(function(){
     * Toggle the login/logout buttons based on the isInClient status, and display a message accordingly
     */
     function displayIsInClientInfo() {
-
         if (liff.isInClient()) {
-            document.getElementById('liffLogoutButton').classList.add('hidden');
-            toggleElement('liffLogoutButton');
-        } else {
             document.getElementById('halamanLogin').classList.add('hidden');
             document.getElementById('isiAplikasi').classList.remove('hidden');
             toggleElement('halamanLogin');
             toggleElement('isiAplikasi');
+            document.getElementById('liffLogoutButton').classList.add('hidden');
+            toggleElement('liffLogoutButton');
+        } else {
             document.getElementById('liffLogoutButton').classList.remove('hidden');
             toggleElement('liffLogoutButton');
             document.getElementById('openWindowButton').classList.add('hidden');
@@ -120,12 +119,18 @@ $(document).ready(function(){
 
         // sendMessages call
         document.getElementById('sendMessageButton').addEventListener('click', function() {
-            liff.sendMessages([{
-                'type': 'text',
-                'text': "Hi"+profile.displayName+",\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* "+totalMakanan+" Makanan\n* "+totalMinuman+" Minuman\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!"
-            }]).then(function() {
-                window.alert('Message sent');
-            });
+            if (!liff.isInClient()) {
+                sendAlertIfNotInClient();
+            } else {
+                liff.sendMessages([{
+                    'type': 'text',
+                    'text': "Hi"+profile.displayName+",\n\nTerimakasih telah memesan makanan, berikut adalah review pesanannya:\n\n* "+totalMakanan+" Makanan\n* "+totalMinuman+" Minuman\n\nPesanan kakak akan segera diproses dan akan dibertahu jika sudah bisa diambil.\n\nMohon ditunggu ya!"
+                }]).then(function() {
+                    window.alert('Message sent');
+                }).catch(function(error) {
+                    window.alert('Error sending message: ' + error);
+                });
+            }
         });
 
         // login call, only when external browser is used
@@ -153,6 +158,13 @@ $(document).ready(function(){
                 toggleElement('isiAplikasi');
             }
         });
+    }
+
+    /**
+    * Alert the user if LIFF is opened in an external browser and unavailable buttons are tapped
+    */
+    function sendAlertIfNotInClient() {
+        alert('This button is unavailable as LIFF is currently being opened in an external browser.');
     }
 
     /**
