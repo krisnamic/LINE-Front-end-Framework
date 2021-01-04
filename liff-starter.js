@@ -41,6 +41,8 @@ window.onload = function() {
     initializeLiff(myLiffId);
 };
 
+
+
 /**
 * Initialize LIFF
 * @param {string} myLiffId The LIFF ID of the selected element
@@ -61,6 +63,13 @@ function initializeLiff(myLiffId) {
  */
 function initializeApp() {
     registerButtonHandlers();
+
+    // check if the user is logged in/out, and disable inappropriate button
+    if (liff.isLoggedIn()) {
+        document.getElementById('liffLoginButton').disabled = true;
+    } else {
+        document.getElementById('liffLogoutButton').disabled = true;
+    }
 }
 
 /**
@@ -105,8 +114,7 @@ function registerButtonHandlers() {
         if (!liff.isLoggedIn()) {
             // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
             liff.login();
-            document.getElementById("halamanLogin").classList.add('hidden');
-            document.getElementById("isiAplikasi").classList.remove('hidden');
+            toggleone();
         }
     });
 }
@@ -126,4 +134,9 @@ function toggleElement(elementId) {
     } else {
         elem.style.display = 'block';
     }
+}
+
+function toggleone(){
+    $(".halamanLogin").addClass('hidden');
+    $(".isiAplikasi").removeClass('hidden');
 }
