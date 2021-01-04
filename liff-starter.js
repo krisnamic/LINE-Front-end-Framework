@@ -70,6 +70,12 @@ function initializeApp() {
     } else {
         document.getElementById('liffLogoutButton').disabled = true;
     }
+
+    if (!liff.isInClient()) {
+        sendAlertIfNotInClient();
+    } else {
+        liff.closeWindow();
+    }
 }
 
 /**
