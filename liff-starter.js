@@ -74,11 +74,11 @@ function initializeApp() {
     }
 
     if (!liff.isInClient()) {
-
+        document.getElementByClass('liffLoginButton').classList.remove('hidden') = true;
+        document.getElementByClass('liffLogoutButton').classList.remove('hidden') = true;
     } else {
         document.getElementById('liffLoginButton').classList.add('hidden') = true;
         document.getElementById('liffLogoutButton').classList.add('hidden') = true;
-        document.getElementByClass('halamanLogin').classList.add('hidden') = true;
     }
 }
 
@@ -145,7 +145,3 @@ function toggleElement(elementId) {
     }
 }
 
-function toggleone(){
-    $(".halamanLogin").addClass('hidden');
-    $(".isiAplikasi").removeClass('hidden');
-}
