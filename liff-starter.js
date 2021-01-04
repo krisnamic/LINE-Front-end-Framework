@@ -125,15 +125,18 @@ $(document).ready(function(){
 
         // login call, only when external browser is used
         document.getElementById('liffLoginButton0').addEventListener('click', function() {
+            document.getElementById('halamanLogin').classList.add('hidden');
+                document.getElementById('isiAplikasi').classList.remove('hidden');
             if (!liff.isLoggedIn()) {
                 // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
                 liff.login();
-                document.getElementById('halamanLogin').classList.add('hidden');
-                document.getElementById('isiAplikasi').classList.remove('hidden');
+                
             }
             else{
                 document.getElementById('halamanLogin').classList.remove('hidden');
+                toggleElement('halamanLogin');
                 document.getElementById('isiAplikasi').classList.add('hidden');
+                toggleElement('isiAplikasi');
             }
         });
 
